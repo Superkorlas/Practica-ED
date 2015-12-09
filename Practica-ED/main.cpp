@@ -1,4 +1,5 @@
 #include "conjunto.h"
+#include "CSS.h"
 #include "crimen.h"
 #include "fecha.h"
 #include <stdlib.h>
@@ -13,117 +14,119 @@ using namespace std;
 int contador = 0;
 
 
-//Convierte una cadena en un crimen
-
-crimen convertir(const string& cadena) {
-    string temp = "";
-    int primero = 0;
-    int ultimo = 0;
-    crimen a_devolver;
-
-    for (int i = 0; i < 22; i++) {
-        if (cadena[primero] == '\"') {
-            ultimo = cadena.find_first_of('\"', ++primero);
-        } else if (cadena[primero] == ',' && cadena[primero - 1] == '\"') {
-            primero++;
-            ultimo = cadena.find_first_of(",", primero);
-        } else {
-            ultimo = cadena.find_first_of(",", primero);
-        }
-
-        temp = cadena.substr(primero, (ultimo - primero));
-
-        if (i == 0) //ID 
-        {
-            long int enteroID = atoi(temp.c_str());
-            a_devolver.setID(enteroID);
-        } else if (i == 1) //Case Number 
-        {
-            a_devolver.setCaseNumber(temp);
-        }
-
-        if (i == 2) //Date
-        {
-            fecha aux = temp;
-            a_devolver.setDate(aux);
-        } else if (i == 4) //IUCR
-        {
-            a_devolver.setIucr(temp);
-        } else if (i == 5) //Primary Tape 
-        {
-            a_devolver.setPrimaryType(temp);
-        } else if (i == 6) //Description
-        {
-            a_devolver.setDescription(temp);
-        } else if (i == 7) //Location Description 
-        {
-            a_devolver.setLocationDescription(temp);
-        } else if (i == 8) //Arrest
-        {
-            if (temp == "true")
-                a_devolver.setArrest(true);
-            else a_devolver.setArrest(false);
-        } else if (i == 9) //Domestic
-        {
-            if (temp == "true")
-                a_devolver.setDomestic(true);
-            else a_devolver.setDomestic(false);
-        } else if (i == 19 && temp != "") //Latitud 
-        {
-            long double enteroID = atof(temp.c_str());
-            a_devolver.setLatitude(enteroID);
-        } else if (i == 20 && temp != "") //Longitud
-        {
-            long double enteroID = atof(temp.c_str());
-            a_devolver.setLongitude(enteroID);
-        }
-
-        primero = ++ultimo;
-    }
-    return a_devolver;
-}
-
-/** @brief lee un fichero de delitos, linea a linea
-@param[in] s nombre del fichero
-@param[in,out] C conjunto sobre el que se lee
-@return true si la lectura ha sido correcta, false en caso contrario
- */
-
-template <class CMP>
-bool load(conjunto<CMP> &C, const string & s) {
-    ifstream fe;
-    string cadena;
-    int contador = 0;
-
-    cout << "Abrimos " << s << endl;
-    fe.open(s.c_str(), ifstream::in);
-    if (fe.fail()) {
-        cerr << "Error al abrir el fichero " << s << endl;
-    } else {
-        getline(fe, cadena, '\n'); //leo la cabecera del fichero
-        cout << cadena << endl;
-        while (/*!fe.eof()*/contador < 10) {
-            getline(fe, cadena, '\n');
-            if (!fe.eof()) {
-                //cout << "leo:: " << cadena << endl;
-                // Convertir cadena a crimen
-                // crimen aux = cadena;
-                crimen aux = convertir(cadena);
-                // Insertar cadena en el conjunto
-                // C.insert(aux);
-                C.insert(aux);
-            }
-            contador++;
-        }
-        fe.close();
-        return true;
-    } // else
-    fe.close();
-    return false;
-}
+////Convierte una cadena en un crimen
+//
+//crimen convertir(const string& cadena) {
+//    string temp = "";
+//    int primero = 0;
+//    int ultimo = 0;
+//    crimen a_devolver;
+//
+//    for (int i = 0; i < 22; i++) {
+//        if (cadena[primero] == '\"') {
+//            ultimo = cadena.find_first_of('\"', ++primero);
+//        } else if (cadena[primero] == ',' && cadena[primero - 1] == '\"') {
+//            primero++;
+//            ultimo = cadena.find_first_of(",", primero);
+//        } else {
+//            ultimo = cadena.find_first_of(",", primero);
+//        }
+//
+//        temp = cadena.substr(primero, (ultimo - primero));
+//
+//        if (i == 0) //ID 
+//        {
+//            long int enteroID = atoi(temp.c_str());
+//            a_devolver.setID(enteroID);
+//        } else if (i == 1) //Case Number 
+//        {
+//            a_devolver.setCaseNumber(temp);
+//        }
+//
+//        if (i == 2) //Date
+//        {
+//            fecha aux = temp;
+//            a_devolver.setDate(aux);
+//        } else if (i == 4) //IUCR
+//        {
+//            a_devolver.setIucr(temp);
+//        } else if (i == 5) //Primary Tape 
+//        {
+//            a_devolver.setPrimaryType(temp);
+//        } else if (i == 6) //Description
+//        {
+//            a_devolver.setDescription(temp);
+//        } else if (i == 7) //Location Description 
+//        {
+//            a_devolver.setLocationDescription(temp);
+//        } else if (i == 8) //Arrest
+//        {
+//            if (temp == "true")
+//                a_devolver.setArrest(true);
+//            else a_devolver.setArrest(false);
+//        } else if (i == 9) //Domestic
+//        {
+//            if (temp == "true")
+//                a_devolver.setDomestic(true);
+//            else a_devolver.setDomestic(false);
+//        } else if (i == 19 && temp != "") //Latitud 
+//        {
+//            long double enteroID = atof(temp.c_str());
+//            a_devolver.setLatitude(enteroID);
+//        } else if (i == 20 && temp != "") //Longitud
+//        {
+//            long double enteroID = atof(temp.c_str());
+//            a_devolver.setLongitude(enteroID);
+//        }
+//
+//        primero = ++ultimo;
+//    }
+//    return a_devolver;
+//}
+//
+///** @brief lee un fichero de delitos, linea a linea
+//@param[in] s nombre del fichero
+//@param[in,out] C conjunto sobre el que se lee
+//@return true si la lectura ha sido correcta, false en caso contrario
+// */
+//
+//template <class CMP>
+//bool load(conjunto<CMP> &C, const string & s) {
+//    ifstream fe;
+//    string cadena;
+//    int contador = 0;
+//
+//    cout << "Abrimos " << s << endl;
+//    fe.open(s.c_str(), ifstream::in);
+//    if (fe.fail()) {
+//        cerr << "Error al abrir el fichero " << s << endl;
+//    } else {
+//        getline(fe, cadena, '\n'); //leo la cabecera del fichero
+//        cout << cadena << endl;
+//        while (/*!fe.eof()*/contador < 10) {
+//            getline(fe, cadena, '\n');
+//            if (!fe.eof()) {
+//                //cout << "leo:: " << cadena << endl;
+//                // Convertir cadena a crimen
+//                // crimen aux = cadena;
+//                crimen aux = convertir(cadena);
+//                // Insertar cadena en el conjunto
+//                // C.insert(aux);
+//                C.insert(aux);
+//            }
+//            contador++;
+//        }
+//        fe.close();
+//        return true;
+//    } // else
+//    fe.close();
+//    return false;
+//}
 
 int main() {
-
+    
+    CSS prueba;
+    prueba.load("crimenes.csv");
 
     //    conjunto<less<crimen> > ChicagoDB;
     //

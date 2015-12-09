@@ -12,6 +12,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <map>
 
 using namespace std;
 
@@ -25,14 +26,14 @@ class CSS
 {
 private:
     map<ID,crimen> baseDatos; 
-    multimap<Date, map<ID,crimen>::iterator > > DateAccess;
-    map<IUCR,set<ID> > IUCRAccess;
-    unordered_map<Termino, set<ID> > index;
-    map<Longitud,multimap<latitud, ID> > posicionGeo;
+//    multimap<Date, map<ID,crimen>::iterator > > DateAccess;
+//    map<IUCR,set<ID> > IUCRAccess;
+//    unordered_map<Termino, set<ID> > index;
+//    map<Longitud,multimap<latitud, ID> > posicionGeo;
 
 public:
     CSS();
-    void load(string nombreDB);
+    bool load(string nombreDB);
 };
 
 #include "CSS.hxx"

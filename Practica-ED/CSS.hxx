@@ -13,7 +13,7 @@ CSS::CSS()
     
 }
 
-void CSS::load(string nombreDB)
+bool CSS::load(string nombreDB)
 {
     ifstream fe;
     string cadena;
@@ -42,7 +42,7 @@ void CSS::load(string nombreDB)
                 // Insertar cadena en el conjunto
                 // C.insert(aux);
                 
-                baseDatos.insert(aux.getID, aux);
+                baseDatos.insert(pair<ID, crimen>(aux.getID(),aux));
             }
             contador++;
         }

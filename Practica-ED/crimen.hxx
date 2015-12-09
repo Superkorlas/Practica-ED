@@ -110,8 +110,8 @@ void crimen::convertir(const string& cadena)
         primero = ++ultimo;
     }
 
-    a_devolver.setDescription(a_devolver.getPrimaryType() + " " + " " + a_devolver.getDescription() + " " + a_devolver.getLocationDescrition());
-    this = a_devolver;
+    a_devolver.setDescription(a_devolver.getPrimaryType() + " " + " " + a_devolver.getDescription() + " " + a_devolver.getLocationDescription());
+    *this = a_devolver;
 }
 
 //definición de los set
