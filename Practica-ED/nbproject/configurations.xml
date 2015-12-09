@@ -4,6 +4,8 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>CSS.h</itemPath>
+      <itemPath>CSS.hxx</itemPath>
       <itemPath>conjunto.h</itemPath>
       <itemPath>conjunto.hxx</itemPath>
       <itemPath>crimen.h</itemPath>
@@ -50,7 +52,14 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <ccTool>
+          <standard>8</standard>
+        </ccTool>
       </compileType>
+      <item path="CSS.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="CSS.hxx" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="conjunto.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="conjunto.hxx" ex="false" tool="3" flavor2="0">
@@ -86,6 +95,10 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="CSS.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="CSS.hxx" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="conjunto.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="conjunto.hxx" ex="false" tool="3" flavor2="0">
