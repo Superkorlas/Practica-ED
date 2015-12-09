@@ -34,7 +34,24 @@ private:
 public:
     CSS();
     bool load(string nombreDB);
+    void insert(const crimen & x);
+    bool erase( unsigned int ID);
+    
+    friend ostream & operator<< (ostream & sal, const CSS & D);
+    
+    class iterator {
+    private:
+        /* @brief it  itera sobre los ID del map 
+      */
+        map<ID,crimen>::iterator it;
+    public:
+           pair<const ID, crimen > & operator*();   
+    
+    };
 };
+
+ostream & operator<<(ostream & sal, const CSS & D);
+
 
 #include "CSS.hxx"
 #endif	/* CSS_H */

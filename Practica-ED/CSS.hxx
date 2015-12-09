@@ -53,5 +53,36 @@ bool CSS::load(string nombreDB)
     return false;
 }
 
+void CSS::insert(const crimen & x)
+{
+    baseDatos.insert(x.getID(), x);
+}
+
+bool CSS::erase( unsigned int ID)
+{
+    if(baseDatos.erase(ID))
+        return true;
+    else
+        return false;
+}
+
+ostream & operator<<(ostream & sal, const CSS & D)
+{
+    typename map<ID, crimen>::iterator it;
+    
+    for (it = D.baseDatos.begin(); it != D.baseDatos.end(); it++)
+    {
+        cout << (*it).second;
+    }
+    return sal;
+}
+
+/////////////////////////////////ITERADORES/////////////////////////////////////
+
+pair<const ID, crimen >& CSS::iterator::operator*()
+{
+    return *(this->it);
+}
+
 #endif	/* CSS_HXX */
 
