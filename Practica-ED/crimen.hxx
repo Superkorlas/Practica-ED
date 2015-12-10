@@ -283,7 +283,7 @@ ostream& operator<<(ostream& os, const crimen& x)
 {
 
     os << "ID: " << x.ID << "\n" << "Case Number: " << x.caseNumber << "\n"
-            << "Date: " << x.date << "\n" << "IUCR: " << x.iucr << "\n" << "Description: " << x.description;
+            << "Date: " << x.date << "\n" << "IUCR: " << x.iucr << "\n" << "Description: " << x.description << "\n";
 
     if (x.arrest == true)
         os << "Arrest: true" << "\n";
