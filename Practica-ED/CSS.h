@@ -13,6 +13,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 #include <map>
 #include <set>
 #include <list>
@@ -54,9 +55,9 @@ public:
     /* Métodos relacionados con los iteradores */
     IUCR_iterator ibegin();
     IUCR_iterator iend();
-//    
-//    IUCR_iterator lower_bound(IUCR);
-//    IUCR_iterator upper_bound(IUCR);
+    
+    IUCR_iterator lower_bound(IUCR aux);
+    IUCR_iterator upper_bound(IUCR aux);
 //    
 //    Date_iterator dbegin();
 //    Date_iterator dend();
@@ -107,6 +108,7 @@ public:
         friend class CSS;
     public:
         pair<const ID, crimen > & operator*();
+        Date_iterator();
 
     };
 };

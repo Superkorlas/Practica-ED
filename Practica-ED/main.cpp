@@ -127,8 +127,8 @@ int main() {
 
     CSS prueba;
     prueba.load("crimenes.csv");
-    cout << prueba;
-
+    if (0)
+        cout << "je";
     //    Prueba de setArrest:
     //    const unsigned int id = 10233462;
     //    prueba.setArrest(id, true);
