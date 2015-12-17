@@ -206,6 +206,88 @@ void CSS::setArrest(const unsigned int ID, bool value)
         (*aux.it).second.setArrest(value);
 }
 
+void CSS::unionPeso( map<ID,float> & m, set<ID> & t_i)
+{
+    
+}
+
+map<ID,float> CSS::unionPeso( const set<ID> & t1, const set<ID> &t2)
+{
+    
+}
+
+vector<pair<ID,float> > CSS::Query(list<string> & q, int k)
+{
+    vector <pair<ID,float> > a_devolver;
+    map<ID,float> temp;
+    list<string>::iterator it = q.begin();
+    
+    //Si lista vacía
+    if (q.size() == 0)
+        return a_devolver;
+    
+    //Primer caso
+    if (q.size() ==  1)
+    {
+        auto aux = index.find(*it);
+        if (aux != index.end())
+        {
+            int i = 0;
+            for (auto tmp = aux->second.begin(); tmp != aux->second.end(); tmp++)
+            {
+                temp[*tmp] = 1.0;
+                i++;
+            }
+        }
+    }
+    
+    //Segundo caso
+    else if (q.size() >= 2)
+    {
+        auto aux = index.find(*it);
+        auto aux2 = index.find(*(++it));
+        if (aux != index.end())
+        {   
+            temp = this->unionPeso(aux->second, aux2->second);
+        }
+        //Tercer caso
+        if (q.size() > 2)
+        {
+            while (it != q.end())
+            {
+                auto aux3 = index.find(*it++);
+                if(aux3 != index.end())
+                    this->unionPeso(temp, aux3->second);  
+            }
+        }
+    }
+    
+    //Meter los k mejores
+    priority_queue<pair<ID, float>, deque<pair<ID,float> >,OrdenarKMenores> k_mejores;
+    auto aux4 = temp.begin();
+    for(int i = 0; i < k && aux4 != temp.end(); i++)
+    {
+        k_mejores.push(*aux4);
+        aux4++;
+    }
+    for (aux4; aux4 != temp.end(); aux4++)
+    {
+        if (aux4->second > k_mejores.top().second)
+        {
+            k_mejores.pop();
+            k_mejores.push(*aux4);
+        }
+    }
+    
+    while (!k_mejores.empty())
+    {
+        a_devolver.push_back(k_mejores.top());
+        k_mejores.pop();
+    }
+    
+    return a_devolver;
+}
+
 list<ID> CSS::inArea(Longitud x1, Latitud y1, Longitud x2, Latitud y2)
 {
     list<ID> lista;

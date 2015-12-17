@@ -19,6 +19,7 @@
 #include <unordered_map>
 #include <set>
 #include <list>
+#include <queue>
 
 using namespace std;
 
@@ -37,6 +38,9 @@ private:
     unordered_map<Termino, set<ID> > index;
     map<Longitud,multimap<Latitud, ID> > posicionGeo;
     
+    void unionPeso( map<ID,float> & m, set<ID> & t_i);
+    map<ID,float> unionPeso( const set<ID> & t1, const set<ID> &t2);
+    
     friend class iterator;
     friend class IUCR_iterator;
     friend class Date_iterator;
@@ -52,7 +56,7 @@ public:
     bool erase(unsigned int ID);
     iterator find_ID(const unsigned int ID);
     void setArrest(const unsigned int ID, bool value);
-//    vector<pair<ID,float> > Query(list<string> & q, int k);    
+    vector<pair<ID,float> > Query(list<string> & q, int k);    
     list<ID> inArea(Longitud x1, Latitud y1, Longitud x2, Latitud y2 );
     
     /* Métodos relacionados con los iteradores */
@@ -120,6 +124,15 @@ public:
 };
 
 ostream & operator<<(ostream & sal, const CSS & D);
+
+class OrdenarKMenores
+{
+public:
+    bool operator() (pair<ID,float>& a, pair<ID,float>& b)
+    {
+        return (a.second < b.second);
+    }
+};
 
 
 #include "CSS.hxx"
