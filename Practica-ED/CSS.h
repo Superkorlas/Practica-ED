@@ -14,7 +14,9 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
+#include "assert.h"
 #include <map>
+#include <unordered_map>
 #include <set>
 #include <list>
 
@@ -30,10 +32,11 @@ class CSS
 {
 private:
     map<ID, crimen> baseDatos;
-    //    multimap<fecha, map<ID,crimen>::iterator > DateAccess;
+    multimap<fecha, map<ID,crimen>::iterator > DateAccess;
     map<IUCR,set<ID> > IUCRAccess;
-    //    unordered_map<Termino, set<ID> > index;
-    //    map<Longitud,multimap<latitud, ID> > posicionGeo;
+    unordered_map<Termino, set<ID> > index;
+    map<Longitud,multimap<Latitud, ID> > posicionGeo;
+    
     friend class iterator;
     friend class IUCR_iterator;
     friend class Date_iterator;
@@ -50,7 +53,7 @@ public:
     iterator find_ID(const unsigned int ID);
     void setArrest(const unsigned int ID, bool value);
 //    vector<pair<ID,float> > Query(list<string> & q, int k);    
-//    list<ID> inArea(Longitud x1, Latitud y1, Longitud x2, Latitud y2 );
+    list<ID> inArea(Longitud x1, Latitud y1, Longitud x2, Latitud y2 );
     
     /* Métodos relacionados con los iteradores */
     IUCR_iterator ibegin();
@@ -58,12 +61,12 @@ public:
     
     IUCR_iterator lower_bound(IUCR aux);
     IUCR_iterator upper_bound(IUCR aux);
-//    
-//    Date_iterator dbegin();
-//    Date_iterator dend();
-//    
-//    Date_iterator lower_bound(fecha);
-//    Date_iterator upper_bound(fecha);
+    
+    Date_iterator dbegin();
+    Date_iterator dend();
+    
+    Date_iterator lower_bound(fecha aux);
+    Date_iterator upper_bound(fecha aux);
     
     iterator begin();
     iterator end();
@@ -97,6 +100,9 @@ public:
         friend class CSS;
     public:
         pair<const ID, crimen > & operator*();
+        IUCR_iterator & operator++();
+        IUCR_iterator operator++(int);
+        CSS* ptr;
         IUCR_iterator();
     };
 
